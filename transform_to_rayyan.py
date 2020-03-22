@@ -31,18 +31,27 @@ def transform_row_to_rayyan(irow):
     orow['pmc_id'] = irow['pmcid']
     orow['pubmed_id'] = irow['pubmed_id']
 
-    # Ensure date range is properly parsed
     publish_time = irow['publish_time'].strip()
     try:
+      # First, try parsing as a daterange.
+      # This should catch most date formats except
+      # those in 'DD-MM-YY' and some other forms.
       start, end = rangeparse(publish_time)
     except:
+      # If parsing as daterange fails, select
+      # the first word. It's usually 'YYYY' or 'DD-MM-YY'
+      # which is good enough.
       publish_time = publish_time.split(' ')[0]
 
     if publish_time:
       try:
+        # Try another parse as daterange
         start, end = rangeparse(publish_time)
       except:
+        # If that fails, then it is ''DD-MM-YY',
+        # which can be picked up by normalparse.
         start = normalparse(publish_time)
+
       orow['year'] = start.year
       orow['month'] = start.month
       orow['day'] = start.day
@@ -51,7 +60,8 @@ def transform_row_to_rayyan(irow):
       orow['month'] = ''
       orow['day'] = ''
 
-    # Try parsing authors to see if it's a list
+    # Inital dataset had authors in a list form.
+    # Try parsing authors to see if it's a list.
     try:
       authors = ast.literal_eval(irow['authors'])
       if type(authors) == list:
@@ -59,7 +69,7 @@ def transform_row_to_rayyan(irow):
       else:
         raise RuntimeError
     except:
-      # It's not a list
+      # It's not a list, use the string as is.
       orow['authors'] = irow['authors']
 
     orow['journal'] = irow['journal']
