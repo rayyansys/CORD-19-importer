@@ -1,0 +1,4 @@
+numpy==1.16.4
+dateparser==0.7.4
+DateRangeParser==1.3.2
+tqdm==4.43.0
