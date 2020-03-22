@@ -22,12 +22,14 @@ if len(sys.argv) != 3:
   print("Incorrect number of arguments!")
   exit(1)
 
+DX_DOI_PREFIX = 'http://dx.doi.org/'
+
 def transform_row_to_rayyan(irow):
     orow = {}
 
     orow['title'] = irow['title']
     orow['abstract'] = irow['abstract']
-    orow['url'] = irow['doi']
+    orow['url'] = DX_DOI_PREFIX + irow['doi']
     orow['pmc_id'] = irow['pmcid']
     orow['pubmed_id'] = irow['pubmed_id']
 
