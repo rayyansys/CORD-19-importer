@@ -1,0 +1,4 @@
+*.csv
+*.csv#
+*.code-workspace
+.vscode/
