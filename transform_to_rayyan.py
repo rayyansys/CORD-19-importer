@@ -94,13 +94,13 @@ def batch_tranform_to_rayyan(process_number, rows):
 
 NUM_CORES = 4
 
-output_fields = ['title', 'abstract', 'url', 'pmc_id', 'pubmed_id', 'year', 'month', 'day', 'authors', 'journal', 'notes']
+OUTPUT_FIELDS = ['title', 'abstract', 'url', 'pmc_id', 'pubmed_id', 'year', 'month', 'day', 'authors', 'journal', 'notes']
 
 if __name__ == "__main__":
   input_csv = csv.DictReader(open(sys.argv[1], 'r', encoding='utf-8', errors='ignore'), delimiter=',')
-  output_csv = csv.DictWriter(open(sys.argv[2], "w+"), delimiter=',', fieldnames=output_fields)
+  output_csv = csv.DictWriter(open(sys.argv[2], "w+"), delimiter=',', fieldnames=OUTPUT_FIELDS)
 
-  output_csv.writerow(dict((fn, fn) for fn in output_fields))
+  output_csv.writerow(dict((fn, fn) for fn in OUTPUT_FIELDS))
 
   # Gather all rows into memory
   all_input_rows = [input_row for input_row in input_csv]
