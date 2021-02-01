@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+# Changes based on 202003207 release
+# Need to write something here ...
+# Changes based on 202003207 release
+# Change has_full_text --> has_pdf_parse
+# Add has_pmc_xml_parse and cord_uid to notes
 
 USAGE = '''\
 Converts open COVID-19 dataset to rayyan compatible form
@@ -22,14 +27,15 @@ if len(sys.argv) != 3:
   print("Incorrect number of arguments!")
   exit(1)
 
-DX_DOI_PREFIX = 'http://dx.doi.org/'
+#DX_DOI_PREFIX = 'http://dx.doi.org/'
 
 def transform_row_to_rayyan(irow):
     orow = {}
 
     orow['title'] = irow['title']
     orow['abstract'] = irow['abstract']
-    orow['url'] = DX_DOI_PREFIX + irow['doi']
+    #orow['url'] = DX_DOI_PREFIX + irow['doi']
+    orow['url'] = irow['url']
     orow['pmc_id'] = irow['pmcid']
     orow['pubmed_id'] = irow['pubmed_id']
 
@@ -77,7 +83,7 @@ def transform_row_to_rayyan(irow):
     orow['journal'] = irow['journal']
 
     notes = []
-    for col in ['sha', 'source_x', 'license', 'Microsoft Academic Paper ID', 'WHO #Covidence', 'has_full_text', 'full_text_file']:
+    for col in ['cord_uid', 'sha', 'doi', 'source_x', 'license', 'Microsoft Academic Paper ID', 'WHO #Covidence', 'has_pdf_parse', 'has_pmc_xml_parse', 'full_text_file']:
       notes.append(col + ': ' + irow[col])
 
     orow['notes'] = '; '.join(notes)
@@ -94,7 +100,7 @@ def batch_tranform_to_rayyan(process_number, rows):
   pbar.close()
   return output
 
-NUM_CORES = 4
+NUM_CORES = 8
 
 OUTPUT_FIELDS = ['title', 'abstract', 'url', 'pmc_id', 'pubmed_id', 'year', 'month', 'day', 'authors', 'journal', 'notes']
 
