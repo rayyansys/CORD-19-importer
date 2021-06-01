@@ -83,7 +83,7 @@ def transform_row_to_rayyan(irow):
     orow['journal'] = irow['journal']
 
     notes = []
-    for col in ['cord_uid', 'sha', 'doi', 'source_x', 'license', 'Microsoft Academic Paper ID', 'WHO #Covidence', 'has_pdf_parse', 'has_pmc_xml_parse', 'full_text_file']:
+    for col in ['cord_uid', 'sha', 'doi', 'source_x', 'license', 'mag_id', 'who_covidence_id', 'arxiv_id', 's2_id', 'pdf_json_files', 'pmc_json_files']:
       notes.append(col + ': ' + irow[col])
 
     orow['notes'] = '; '.join(notes)
