@@ -1,3 +1,7 @@
+*This repo is now archived. To import the CORD-19 dataset into Rayyan,
+we suggest that you open the public review [here](https://rayyan.ai/reviews/125430)
+and use the Copy feature.*
+
 Converts open COVID-19 dataset to rayyan compatible form.
 
 Requires Python 3.8.
